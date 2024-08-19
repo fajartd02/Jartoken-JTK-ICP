@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "jartoken_backend": {
+      "main": "src/jartoken_backend/main.mo",
+      "type": "motoko"
+    },
+    "jartoken_frontend": {
+      "dependencies": [
+        "jartoken_backend"
+      ],
+      "source": [
+        "src/jartoken_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "jartoken_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
