@@ -19,4 +19,8 @@ actor Jartoken {
 
     return balance;
   };
+
+  public query func getSymbol() : async Text {
+    return symbol;
+  };
 };

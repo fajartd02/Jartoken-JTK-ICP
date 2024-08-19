@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { jartoken_backend as token } from "../../../declarations/jartoken_backend";
+import { Principal } from "@dfinity/principal";
 
 function Balance() {
-  
-  async function handleClick() {
-    console.log("Balance Button Clicked");
-  }
 
+  const [inputValue, setInput] = useState("");
+  const [showBalance, setBalance] = useState("");
+  const [showSymbol, setSymbol] = useState("");
+  const [isHidden, setHidden] = useState(true);
+
+  async function handleClick() {
+    console.log(inputValue);
+    const principal = Principal.fromText(inputValue);
+    const balance = await token.balanceOf(principal);
+    setBalance(balance.toLocaleString());
+    setSymbol(await token.getSymbol());
+    setHidden(false);
+  }
 
   return (
     <div className="window white">
@@ -15,6 +26,8 @@ function Balance() {
           id="balance-principal-id"
           type="text"
           placeholder="Enter a Principal ID"
+          value={inputValue}
+          onChange={(e) => setInput(e.target.value)}
         />
       </p>
       <p className="trade-buttons">
@@ -25,7 +38,7 @@ function Balance() {
           Check Balance
         </button>
       </p>
-      <p>This account has a balance of XYZ.</p>
+      <p hidden={isHidden}>This account has a balance of {showBalance} {showSymbol}.</p>
     </div>
   );
 }
